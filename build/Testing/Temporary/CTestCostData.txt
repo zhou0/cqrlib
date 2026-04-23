@@ -1,3 +1,0 @@
-CQRlibTest 3 0.0213508
-CPPQRTest 3 0.0114958
----
