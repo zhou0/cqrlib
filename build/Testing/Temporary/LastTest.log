@@ -1,0 +1,33 @@
+Start testing: Apr 23 12:46 UTC
+----------------------------------------------------------
+1/2 Testing: CQRlibTest
+1/2 Test: CQRlibTest
+Command: "/usr/bin/cmake" "-DTEST_EXECUTABLE=/app/build/CQRlibTest" "-DREFERENCE_FILE=/app/CQRlibTest_orig.lst" "-DOUTPUT_FILE=CQRlibTest.lst" "-P" "/app/run_test.cmake"
+Directory: /app/build
+"CQRlibTest" start time: Apr 23 12:46 UTC
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"CQRlibTest" end time: Apr 23 12:46 UTC
+"CQRlibTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: CPPQRTest
+2/2 Test: CPPQRTest
+Command: "/usr/bin/cmake" "-DTEST_EXECUTABLE=/app/build/CPPQRTest" "-DREFERENCE_FILE=/app/CPPQRTest_orig.lst" "-DOUTPUT_FILE=CPPQRTest.lst" "-P" "/app/run_test.cmake"
+Directory: /app/build
+"CPPQRTest" start time: Apr 23 12:46 UTC
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"CPPQRTest" end time: Apr 23 12:46 UTC
+"CPPQRTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 23 12:46 UTC
