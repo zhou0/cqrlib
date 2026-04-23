@@ -1,0 +1,21 @@
+# Build directories
+build/
+lib/
+bin/
+
+# Object files and library artifacts
+*.o
+*.lo
+*.a
+*.la
+
+# Executables
+CQRlibTest
+CPPQRTest
+
+# Test output files
+*.lst
+!*_orig.lst
+
+# Common temporary files
+core
