@@ -8,12 +8,17 @@ add_library(CQRlib cqrlib.c)
 target_include_directories(CQRlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(CQRlibTest CQRlibTest.c)
-target_link_libraries(CQRlibTest CQRlib m)
+target_link_libraries(CQRlibTest CQRlib)
+if(NOT WIN32)
+    target_link_libraries(CQRlibTest m)
+endif()
 
 add_executable(CPPQRTest CPPQRTest.cpp)
 target_compile_definitions(CPPQRTest PRIVATE CQR_NOCCODE=1)
 target_include_directories(CPPQRTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(CPPQRTest m)
+if(NOT WIN32)
+    target_link_libraries(CPPQRTest m)
+endif()
 
 include(GNUInstallDirs)
 install(TARGETS CQRlib
