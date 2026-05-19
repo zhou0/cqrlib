@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 project(CQRlib VERSION 1.1.4 LANGUAGES C CXX)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -ansi -pedantic")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -ansi -pedantic")
 
-add_library(CQRlib cqrlib.c)
+add_library(CQRlib SHARED cqrlib.c)
 target_include_directories(CQRlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(CQRlibTest CQRlibTest.c)
