@@ -1,19 +1,26 @@
 cmake_minimum_required(VERSION 3.5)
 project(CQRlib VERSION 1.1.4 LANGUAGES C CXX)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -ansi -pedantic")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -ansi -pedantic")
 
-add_library(CQRlib cqrlib.c)
+add_library(CQRlib SHARED cqrlib.c)
 target_include_directories(CQRlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(CQRlibTest CQRlibTest.c)
-target_link_libraries(CQRlibTest CQRlib m)
+target_link_libraries(CQRlibTest CQRlib)
+if(NOT WIN32)
+    target_link_libraries(CQRlibTest m)
+endif()
 
 add_executable(CPPQRTest CPPQRTest.cpp)
 target_compile_definitions(CPPQRTest PRIVATE CQR_NOCCODE=1)
 target_include_directories(CPPQRTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(CPPQRTest m)
+if(NOT WIN32)
+    target_link_libraries(CPPQRTest m)
+endif()
 
 include(GNUInstallDirs)
 install(TARGETS CQRlib
