@@ -242,9 +242,9 @@ int main ( )
     
     
     {
-        CPPQR<double> q1( 3,5,7,11 );
-        CPPQR<double> q2( q1.GetW(), q1.GetX(), q1.GetY(), q1.GetZ() );
-        if ( q1 != q2 || !(q1==q2) )
+        CPPQR<double> bq1( 3,5,7,11 );
+        CPPQR<double> bq2( bq1.GetW(), bq1.GetX(), bq1.GetY(), bq1.GetZ() );
+        if ( bq1 != bq2 || !(bq1==bq2) )
         {
             errorcount++;
             fprintf( stdout, " CPPQR test constructors, gets, ==, != failed\n" );
@@ -261,10 +261,10 @@ int main ( )
     }
     
     {
-        CPPQR<double> q1( 3,5,7,11 );
-        CPPQR<double> q2( q1 );
-        CPPQR<double> q3 = q2;
-        if ( q1 != q2 || q1 != q3 )
+        CPPQR<double> bq1( 3,5,7,11 );
+        CPPQR<double> bq2( bq1 );
+        CPPQR<double> bq3 = bq2;
+        if ( bq1 != bq2 || bq1 != bq3 )
         {
             errorcount++;
             fprintf( stdout, " CPPQR copy constructor or assignment operator failed\n" );
@@ -272,10 +272,10 @@ int main ( )
     }
     
     {
-        CPPQR<double> q1( 3,5,7,11 );
-        CPPQR<double> q2;
-        q2.Set( q1.GetW(), q1.GetX(), q1.GetY(), q1.GetZ() );
-        if( q1 != q2 )
+        CPPQR<double> bq1( 3,5,7,11 );
+        CPPQR<double> bq2;
+        bq2.Set( bq1.GetW(), bq1.GetX(), bq1.GetY(), bq1.GetZ() );
+        if( bq1 != bq2 )
         {
             errorcount++;
             fprintf( stdout, " CPPQR Set failed\n" );
@@ -304,16 +304,16 @@ int main ( )
     }
     
     {
-        const CPPQR<double> q1( CPPQR<double>( 3,5,7,9 ) );
-        const double normsq = q1.Normsq( );
-        if ( normsq != 164.0 )
+        const CPPQR<double> bq1( CPPQR<double>( 3,5,7,9 ) );
+        const double bnormsq = bq1.Normsq( );
+        if ( bnormsq != 164.0 )
         {
             errorcount++;
             fprintf ( stdout, " CPPQR Normsq failed \n" );
         }
         
-        const CPPQR<double> q2 = q1.UnitQ( );
-        if( q1/sqrt(normsq) != q2 )
+        const CPPQR<double> bq2 = bq1.UnitQ( );
+        if( bq1/sqrt(bnormsq) != bq2 )
         {
             errorcount++;
             fprintf( stdout, "UnitQ failed\n" );
@@ -321,8 +321,8 @@ int main ( )
     }
     
     {
-        const CPPQR<double> q1( CPPQR<double>( 3,5,7,9 ) );
-        if ( q1.GetW() != q1[0] || q1.GetX() != q1[1] || q1.GetY() != q1[2] || q1.GetZ() != q1[3] )
+        const CPPQR<double> bq1( CPPQR<double>( 3,5,7,9 ) );
+        if ( bq1.GetW() != bq1[0] || bq1.GetX() != bq1[1] || bq1.GetY() != bq1[2] || bq1.GetZ() != bq1[3] )
         {
             errorcount++;
             fprintf( stdout, "component fetches failed\n" );
@@ -343,58 +343,58 @@ int main ( )
      
      */
     {
-        const CPPQR<double> q1( CPPQR<double>( -sqrt(7.),2,3,4 ));
-        if ( q1.GetIm() != CPPQR<double>( 0,2,3,4 ) )
+        const CPPQR<double> bq1( CPPQR<double>( -sqrt(7.),2,3,4 ));
+        if ( bq1.GetIm() != CPPQR<double>( 0,2,3,4 ) )
         {
             errorcount++;
             fprintf( stdout, "GetIm failed\n" );
         }
         
         
-        if ( q1.GetAxis().Dist(CPPQR<double>( 0,2./sqrt(4.+9.+16.),3./sqrt(4.+9.+16.),4./sqrt(4.+9.+16.) ))>100.*DBL_EPSILON )
+        if ( bq1.GetAxis().Dist(CPPQR<double>( 0,2./sqrt(4.+9.+16.),3./sqrt(4.+9.+16.),4./sqrt(4.+9.+16.) ))>100.*DBL_EPSILON )
         {
             errorcount++;
             fprintf( stdout, "GetAxis failed\n" );
         }
         
-        if (fabs(q1.GetAngle()-2.027462712001523)>40.*DBL_EPSILON*2.027462712001523)
+        if (fabs(bq1.GetAngle()-2.027462712001523)>40.*DBL_EPSILON*2.027462712001523)
         {
             errorcount++;
-            fprintf( stdout, "GetAngle failed, got %g, expected %g\n",q1.GetAngle(),2.027462712001523 );
+            fprintf( stdout, "GetAngle failed, got %g, expected %g\n",bq1.GetAngle(),2.027462712001523 );
         }
         
         
-        if ((q1.log() - CPPQR<double>(log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942)).Norm() > 
-            40.*DBL_EPSILON*q1.log().Norm())
+        if ((bq1.log() - CPPQR<double>(log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942)).Norm() >
+            40.*DBL_EPSILON*bq1.log().Norm())
         {
             errorcount++;
             fprintf( stdout, "quaternion log failed log([%g,%g,%g,%g]) = [%g,%g,%g,%g] instead of [%g,%g,%g,%g], normdiff = %g\n",
-                    q1.GetW(), q1.GetX(), q1.GetY(), q1.GetZ(),
-                    q1.log().GetW(), q1.log().GetX(), q1.log().GetY(), q1.log().GetZ(),
+                    bq1.GetW(), bq1.GetX(), bq1.GetY(), bq1.GetZ(),
+                    bq1.log().GetW(), bq1.log().GetX(), bq1.log().GetY(), bq1.log().GetZ(),
                     log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942,
-                    (q1.log() - CPPQR<double>(log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942)).Norm()
+                    (bq1.log() - CPPQR<double>(log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942)).Norm()
             );
 
         }
         
-        if (((q1.log()).exp()-q1).Norm()>10.*DBL_EPSILON*q1.Norm() || 
-            ((q1.exp()).log().exp()-q1.exp()).Norm()>10.*DBL_EPSILON*q1.exp().Norm())
+        if (((bq1.log()).exp()-bq1).Norm()>10.*DBL_EPSILON*bq1.Norm() ||
+            ((bq1.exp()).log().exp()-bq1.exp()).Norm()>10.*DBL_EPSILON*bq1.exp().Norm())
         {
             errorcount++;
             fprintf( stdout, "log(exp) or exp(log) failed\n," 
                    " q = [%g,%g,%g,%g],"
                    " log = [%g,%g,%g,%g], exp(log) = [%g,%g,%g,%g],"
                    " exp = [%g,%g,%g,%g], log(exp) = [%g,%g,%g,%g]\n",
-                    q1.GetW(),q1.GetX(),q1.GetY(),q1.GetZ(),
-                    q1.log().GetW(),q1.log().GetX(),q1.log().GetY(),q1.log().GetZ(),
-                    q1.log().exp().GetW(),q1.log().exp().GetX(),q1.log().exp().GetY(),q1.log().exp().GetZ(),
-                    q1.exp().GetW(),q1.exp().GetX(),q1.exp().GetY(),q1.exp().GetZ(),
-                    q1.exp().log().exp().GetW(),q1.exp().log().exp().GetX(),q1.exp().log().exp().GetY(),q1.exp().log().exp().GetZ()
+                    bq1.GetW(),bq1.GetX(),bq1.GetY(),bq1.GetZ(),
+                    bq1.log().GetW(),bq1.log().GetX(),bq1.log().GetY(),bq1.log().GetZ(),
+                    bq1.log().exp().GetW(),bq1.log().exp().GetX(),bq1.log().exp().GetY(),bq1.log().exp().GetZ(),
+                    bq1.exp().GetW(),bq1.exp().GetX(),bq1.exp().GetY(),bq1.exp().GetZ(),
+                    bq1.exp().log().exp().GetW(),bq1.exp().log().exp().GetX(),bq1.exp().log().exp().GetY(),bq1.exp().log().exp().GetZ()
             );
         }
         
         for (int i = -5; i < 6; i++) {
-            if ((q1.pow(i) - q1.pow(double(i))).Norm() > 10.*DBL_EPSILON*(q1.pow(i)).Norm())
+            if ((bq1.pow(i) - bq1.pow(double(i))).Norm() > 10.*DBL_EPSILON*(bq1.pow(i)).Norm())
             {
                 errorcount++;
                 fprintf( stdout, "integer power double power comparison failed\n,"); 
@@ -406,38 +406,38 @@ int main ( )
     }
     
     {
-        const CPPQR<double> q1( CPPQR<double>( -4.,0.,0.,0. ));
-        const CPPQR<double> q2( CPPQR<double>( -4.,1.,1.,1. ));
-        const CPPQR<double> q3( CPPQR<double>( 4.,0.,0.,0. ));
+        const CPPQR<double> bq1( CPPQR<double>( -4.,0.,0.,0. ));
+        const CPPQR<double> bq2( CPPQR<double>( -4.,1.,1.,1. ));
+        const CPPQR<double> bq3( CPPQR<double>( 4.,0.,0.,0. ));
         CPPQR <double> qout1, qout2, qout3, qtest1, qtest2, qtest3;
         
         for (int i = 1; i < 9; i++) {
             for (int j = 0; j <  i; j++ ) {
-                qout1 = q1.root(i,j);
-                qout2 = q2.root(i,j);
-                qout3 = q3.root(i,j);
+                qout1 = bq1.root(i,j);
+                qout2 = bq2.root(i,j);
+                qout3 = bq3.root(i,j);
                 qtest1 = qout1.pow(i);
                 qtest2 = qout2.pow(i);
                 qtest3 = qout3.pow(i);
-                if (q1.Dist(qtest1) > 100.*DBL_EPSILON*q1.Norm()
-                    || q2.Dist(qtest2) > 100.*DBL_EPSILON*q2.Norm()
-                    || q3.Dist(qtest3) > 100.*DBL_EPSILON*q3.Norm()) {
+                if (bq1.Dist(qtest1) > 100.*DBL_EPSILON*bq1.Norm()
+                    || bq2.Dist(qtest2) > 100.*DBL_EPSILON*bq2.Norm()
+                    || bq3.Dist(qtest3) > 100.*DBL_EPSILON*bq3.Norm()) {
                     errorcount++;
                     fprintf(stdout," %d'th root of [%g,%g,%g,%g] = [%g,%g,%g,%g], power = [%g,%g,%g,%g], delta %g\n",
-                        i, q1.GetW(), q1.GetX(), q1.GetY(), q1.GetZ(),
+                        i, bq1.GetW(), bq1.GetX(), bq1.GetY(), bq1.GetZ(),
                         qout1.GetW(), qout1.GetX(), qout1.GetY(), qout1.GetZ(),
                         qtest1.GetW(), qtest1.GetX(), qtest1.GetY(), qtest1.GetZ(),
-                        (q1-qtest1).Norm());
+                        (bq1-qtest1).Norm());
                     fprintf(stdout," %d'th root of [%g,%g,%g,%g] = [%g,%g,%g,%g], power = [%g,%g,%g,%g], delta %g\n",
-                        i, q2.GetW(), q2.GetX(), q2.GetY(), q2.GetZ(),
+                        i, bq2.GetW(), bq2.GetX(), bq2.GetY(), bq2.GetZ(),
                             qout2.GetW(), qout2.GetX(), qout2.GetY(), qout2.GetZ(),
                             qtest2.GetW(), qtest2.GetX(), qtest2.GetY(), qtest2.GetZ(),
-                            (q2-qtest2).Norm());
+                            (bq2-qtest2).Norm());
                     fprintf(stdout," %d'th root of [%g,%g,%g,%g] = [%g,%g,%g,%g], power = [%g,%g,%g,%g], delta %g\n",
-                            i, q3.GetW(), q3.GetX(), q3.GetY(), q3.GetZ(),
+                            i, bq3.GetW(), bq3.GetX(), bq3.GetY(), bq3.GetZ(),
                             qout3.GetW(), qout3.GetX(), qout3.GetY(), qout3.GetZ(),
                             qtest3.GetW(), qtest3.GetX(), qtest3.GetY(), qtest3.GetZ(),
-                            (q3-qtest3).Norm());
+                            (bq3-qtest3).Norm());
                     
                 }
             }
