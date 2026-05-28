@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.5)
-project(CQRlib VERSION 1.1.4 LANGUAGES C CXX)
+project(CQRlib VERSION 1.1.5 LANGUAGES C CXX)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+if(NOT MSVC)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -ansi -pedantic")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -ansi -pedantic")
+else()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4 /wd4710")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4710")
+endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -ansi -pedantic")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -ansi -pedantic")
+
+
+
+
 
 add_library(CQRlib SHARED cqrlib.c)
 target_include_directories(CQRlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

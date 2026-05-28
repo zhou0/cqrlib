@@ -5,13 +5,14 @@
 
                  CQRlib -- ANSI C API for Quaternion Rotations
 
-                                 Release 1.1.4
-                                  29 Apr 2018
-              © 2008, 2009, 2010, 2014, 2018 Herbert J. Bernstein
+                                 Release 1.1.5
+                                  12 Feb 2025
+              © 2008, 2009, 2010, 2014, 2018, 2025 Herbert J. Bernstein
                             yayahjb at gmail dot com
                 You may distribute the CQRlib API under the LGPL
 
-   The 1.1.4 release is a documentation change to reflect a move of the
+      The 1.1.5 release resolves numerous compiler warnings and fixes a bug
+   in CPPQRTest.cpp. The 1.1.4 release is a documentation change to reflect a move of the
    source to github. The 1.1.3 release parenthesized uses of *this that
    caused errors from OSX clang. Thanks to Zack Settel for reporting the
    problem. The 1.1.2 release improved the portability of the code for Visual

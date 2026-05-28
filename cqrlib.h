@@ -224,10 +224,10 @@ inline CPPQR pow( const int p) const {
     if ( p == 0 ) return (CPPQR(1.0,0.,0.,0.));
     else if ( p > 0 ) {
         qtemp = *this;
-        ptemp = p;
+        ptemp = (unsigned int)p;
     } else {
         qtemp = (*this).Inverse();
-        ptemp = -p;
+        ptemp = (unsigned int)(-p);
     }
     qaccum = CPPQR(1.0,0.,0.,0.);
     while(1) {
