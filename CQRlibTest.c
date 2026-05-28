@@ -321,15 +321,15 @@ int main(int argc, char ** argv) {
     
     
     {
-        CQRQuaternion q1 = {3.,5.,7.,9.};
-        double qw,qx,qy,qz;
+        CQRQuaternion bq1 = {3.,5.,7.,9.};
+        double qw,bqx,bqy,bqz;
         
-        CQRGetQuaternionW(&qw,&q1);
-        CQRGetQuaternionX(&qx,&q1);
-        CQRGetQuaternionY(&qy,&q1);
-        CQRGetQuaternionZ(&qz,&q1);
+        CQRGetQuaternionW(&qw,&bq1);
+        CQRGetQuaternionX(&bqx,&bq1);
+        CQRGetQuaternionY(&bqy,&bq1);
+        CQRGetQuaternionZ(&bqz,&bq1);
         
-        if ( qw != q1.w || qx != q1.x || qy != q1.y || qz != q1.z )
+        if ( qw != bq1.w || bqx != bq1.x || bqy != bq1.y || bqz != bq1.z )
         {
             errorcount++;
             fprintf( stdout, "CQRGetQuaternionW/X/Y/Z failed\n" );
@@ -352,12 +352,12 @@ int main(int argc, char ** argv) {
      
      */
     {
-        CQRQuaternion q1, q1Im, q1axis, q1log, qtemp, q1logexp, q1exp, q1explog, q1explogexp, q1powi, q1powd;
+        CQRQuaternion bq1, q1Im, q1axis, q1log, qtemp, q1logexp, q1exp, q1explog, q1explogexp, q1powi, q1powd;
         double q1angle, norm, q1lognorm;
         double norm1, norm2, norm3, norm4;
         
-        CQRMSet(q1,-sqrt(7.),2.,3.,4.);
-        CQRGetQuaternionIm(&q1Im,&q1);
+        CQRMSet(bq1,-sqrt(7.),2.,3.,4.);
+        CQRGetQuaternionIm(&q1Im,&bq1);
         
         if (q1Im.w != 0. || q1Im.x != 2. || q1Im.y != 3. || q1Im.z != 4. )
         {
@@ -365,7 +365,7 @@ int main(int argc, char ** argv) {
             fprintf( stdout, "CQRGetQuaternionIm failed\n" );
         }
         
-        CQRGetQuaternionAxis(&q1axis,&q1);
+        CQRGetQuaternionAxis(&q1axis,&bq1);
         
         if (q1axis.w != 0. || fabs(q1axis.x - 2./sqrt(4.+9.+16.)) > 100.*DBL_EPSILON 
                            || fabs(q1axis.y - 3./sqrt(4.+9.+16.)) > 100.*DBL_EPSILON
@@ -375,7 +375,7 @@ int main(int argc, char ** argv) {
             fprintf( stdout, "CQRGetQuaternionAxis failed\n" );
         }
 
-        CQRGetQuaternionAngle(&q1angle,&q1);
+        CQRGetQuaternionAngle(&q1angle,&bq1);
         
         if (fabs(q1angle-2.027462712001523)>10.*DBL_EPSILON*2.027462712001523)
         {
@@ -383,7 +383,7 @@ int main(int argc, char ** argv) {
             fprintf( stdout, "CQRGetQuaternionAngle failed, got %g, expected %g\n",q1angle,2.027462712001523 );
         }
         
-        CQRLog(&q1log,&q1);
+        CQRLog(&q1log,&bq1);
         CQRMSet(qtemp,log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942)
         CQRMSubtract(qtemp,qtemp,q1log);
         CQRMNorm(norm,qtemp);
@@ -392,21 +392,21 @@ int main(int argc, char ** argv) {
         {
             errorcount++;
             fprintf( stdout, "quaternion log failed log([%g,%g,%g,%g]) = [%g,%g,%g,%g] instead of [%g,%g,%g,%g], normdiff = %g\n",
-                    q1.w, q1.x, q1.y, q1.z,
+                    bq1.w, bq1.x, bq1.y, bq1.z,
                     q1log.w, q1log.x, q1log.y, q1log.z,
                     log(6.), 0.752980747892971, 1.129471121839457, 1.505961495785942,
                     norm);
             
         }
         
-        CQRLog(&q1log,&q1);
+        CQRLog(&q1log,&bq1);
         CQRExp(&q1logexp,&q1log);
-        CQRExp(&q1exp,&q1);
+        CQRExp(&q1exp,&bq1);
         CQRLog(&q1explog,&q1exp);
         CQRExp(&q1explogexp,&q1explog);
-        CQRMSubtract(qtemp,q1logexp,q1); CQRMNorm(norm1,qtemp);
+        CQRMSubtract(qtemp,q1logexp,bq1); CQRMNorm(norm1,qtemp);
         CQRMSubtract(qtemp,q1explogexp,q1exp); CQRMNorm(norm2,qtemp);
-        CQRMNorm(norm3,q1);
+        CQRMNorm(norm3,bq1);
         CQRMNorm(norm4,q1exp)
         
         if (norm1>40.*DBL_EPSILON*norm3 || 
@@ -417,7 +417,7 @@ int main(int argc, char ** argv) {
                     " q = [%g,%g,%g,%g],"
                     " log = [%g,%g,%g,%g], exp(log) = [%g,%g,%g,%g],"
                     " exp = [%g,%g,%g,%g], log(exp) = [%g,%g,%g,%g]\n",
-                    q1.w,q1.x,q1.y,q1.z,
+                    bq1.w,bq1.x,bq1.y,bq1.z,
                     q1log.w,q1log.x,q1log.y,q1log.z,
                     q1logexp.w,q1logexp.x,q1logexp.y,q1logexp.z,
                     q1exp.w,q1exp.x,q1exp.y,q1exp.z,
@@ -426,8 +426,8 @@ int main(int argc, char ** argv) {
         }
         
         for (i = -5; i < 6; i++) {
-             CQRDoublePower(&q1powd,&q1,(double)i);
-             CQRIntegerPower(&q1powi,&q1,i);
+             CQRDoublePower(&q1powd,&bq1,(double)i);
+             CQRIntegerPower(&q1powi,&bq1,i);
              CQRMSubtract(qtemp,q1powd,q1powi);
              CQRMNorm(norm,qtemp);
              CQRMNorm(norm1,q1powi);
@@ -443,44 +443,44 @@ int main(int argc, char ** argv) {
     }
     
     {
-        CQRQuaternion q1, q2, q3, qout1, qout2, qout3, qtest1, qtest2, qtest3;
+        CQRQuaternion bq1, bq2, bq3, qout1, qout2, qout3, qtest1, qtest2, qtest3;
         double norm1, norm2, norm3;
         double normq1, normq2, normq3;
         
-        CQRMSet (q1, -4.,0.,0.,0. );
-        CQRMSet (q2, -4.,1.,1.,1. );
-        CQRMSet (q3,  4.,0.,0.,0. );
+        CQRMSet (bq1, -4.,0.,0.,0. );
+        CQRMSet (bq2, -4.,1.,1.,1. );
+        CQRMSet (bq3,  4.,0.,0.,0. );
         
         for (i = 1; i < 9; i++) {
             for (j = 0; j <  i; j++ ) {
-                CQRIntegerRoot(&qout1,&q1,i,j);
-                CQRIntegerRoot(&qout2,&q2,i,j);
-                CQRIntegerRoot(&qout3,&q3,i,j);
+                CQRIntegerRoot(&qout1,&bq1,i,j);
+                CQRIntegerRoot(&qout2,&bq2,i,j);
+                CQRIntegerRoot(&qout3,&bq3,i,j);
                 CQRIntegerPower(&qtest1,&qout1,i);
                 CQRIntegerPower(&qtest2,&qout2,i);
                 CQRIntegerPower(&qtest3,&qout3,i);
-                CQRMNorm(normq1,q1);
-                CQRMNorm(normq2,q2);
-                CQRMNorm(normq3,q3);
-                CQRMDist(norm1,q1,qtest1);
-                CQRMDist(norm2,q2,qtest2);
-                CQRMDist(norm3,q3,qtest3);
+                CQRMNorm(normq1,bq1);
+                CQRMNorm(normq2,bq2);
+                CQRMNorm(normq3,bq3);
+                CQRMDist(norm1,bq1,qtest1);
+                CQRMDist(norm2,bq2,qtest2);
+                CQRMDist(norm3,bq3,qtest3);
                 if (norm1 > 100.*DBL_EPSILON*normq1
                     || norm2 > 100.*DBL_EPSILON*normq2
                     || norm3 > 100.*DBL_EPSILON*normq3) {
                     errorcount++;
                     fprintf(stdout," %d'th root of [%g,%g,%g,%g] = [%g,%g,%g,%g], power = [%g,%g,%g,%g], delta %g\n",
-                            i, q1.w, q1.x, q1.y, q1.z,
+                            i, bq1.w, bq1.x, bq1.y, bq1.z,
                             qout1.w, qout1.x, qout1.y, qout1.z,
                             qtest1.w, qtest1.x, qtest1.y, qtest1.z,
                             norm1);
                     fprintf(stdout," %d'th root of [%g,%g,%g,%g] = [%g,%g,%g,%g], power = [%g,%g,%g,%g], delta %g\n",
-                            i, q2.w, q2.x, q2.y, q2.z,
+                            i, bq2.w, bq2.x, bq2.y, bq2.z,
                             qout2.w, qout2.x, qout2.y, qout2.z,
                             qtest2.w, qtest2.x, qtest2.y, qtest2.z,
                             norm2);
                     fprintf(stdout," %d'th root of [%g,%g,%g,%g] = [%g,%g,%g,%g], power = [%g,%g,%g,%g], delta %g\n",
-                            i, q3.w, q3.x, q3.y, q3.z,
+                            i, bq3.w, bq3.x, bq3.y, bq3.z,
                             qout3.w, qout3.x, qout3.y, qout3.z,
                             qtest3.w, qtest3.x, qtest3.y, qtest3.z,
                             norm3);

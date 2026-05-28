@@ -567,15 +567,15 @@ inline VectorType& operator* ( const VectorType& v )
     return( RotateByQuaternion( v ) );
 }
 
-/* RotateByQuaternion -- Rotate a vector by a Quaternion, w = qvq* */
+/* RotateByQuaternion -- Rotate a vector by a Quaternion, vout = qvq* */
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-inline void RotateByQuaternion(VectorType &w, const VectorType v )
+inline void RotateByQuaternion(VectorType &vout, const VectorType v )
 {
     CPPQR vquat( 0.0, v[0], v[1], v[2] );
     const CPPQR wquat = (*this)*vquat;
     const CPPQR qconj = (*this).Conjugate( );
     vquat = wquat * qconj;
-    w[0] = vquat.x; w[1] = vquat.y; w[2] = vquat.z;
+    vout[0] = vquat.x; vout[1] = vquat.y; vout[2] = vquat.z;
     return;
 }
 
