@@ -58,7 +58,7 @@
 #endif
 
 
-int main(int argc, char ** argv) {
+int main(void) {
     
     CQRQuaternionHandle q1, q2, q3;
     CQRQuaternion q4 = {0,0,0,0}, qx = {0,0,0,0}, qy = {0,0,0,0}, qz = {0,0,0,0};
